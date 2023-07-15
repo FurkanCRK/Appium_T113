@@ -37,12 +37,26 @@ public class Calculator_Test {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
         driver.activateApp("com.google.android.calculator");
+
         // uygulamanin yuklendigini dogrular(isInstalled)
         Assert.assertTrue(driver.isAppInstalled("com.google.android.calculator"));
-        // uygulamanin acildigini dogrular
-        // carpma, bolme, toplama, cikarma, islemleri yaparak sonuclari dogrular
-        // AC butonuna tiklayarak ana ekrani temizler
 
+        // uygulamanin acildigini dogrular
+        AndroidElement acButonu = driver.findElementByAccessibilityId("clear");
+        Assert.assertTrue(acButonu.isDisplayed());
+
+        // carpma, bolme, toplama, cikarma, islemleri yaparak sonuclari dogrular
+        driver.findElementByAccessibilityId("8").click();
+        driver.findElementByAccessibilityId("0").click();
+        driver.findElementByAccessibilityId("multiply").click();
+        driver.findElementByAccessibilityId("2").click();
+        driver.findElementByAccessibilityId("0").click();
+        driver.findElementByAccessibilityId("equals").click();
+        String sonuc = driver.findElementById("com.google.android.calculator:id/result_final").getText();
+        Assert.assertEquals(Integer.parseInt(sonuc),1600);
+
+        // AC butonuna tiklayarak ana ekrani temizler
+        driver.findElementByAccessibilityId("clear").click();
 
 
 
